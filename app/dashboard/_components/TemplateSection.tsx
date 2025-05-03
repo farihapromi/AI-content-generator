@@ -1,11 +1,12 @@
 import Templates from '@/app/(data)/Templates';
 import React from 'react';
+import TemplateCard from './templateCard';
 //type defination
 export interface TEMPLATE {
   name: string;
   desc: string;
   icon: string;
-  categoty: string;
+  category: string;
   slug: string;
   aiPrompt: string;
   form?: FORM[];
@@ -21,7 +22,9 @@ const TemplateSection = () => {
   return (
     <div>
       {Templates.map((item: TEMPLATE, index: number) => (
-        <h2>{item.aiPrompt}</h2>
+        <div key={index}>
+          <TemplateCard {...item} />
+        </div>
       ))}
     </div>
   );
