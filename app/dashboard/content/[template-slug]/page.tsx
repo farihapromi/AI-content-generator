@@ -1,6 +1,11 @@
 import React from 'react';
+interface PROPS {
+  params: {
+    'template-slug': string;
+  };
+}
 
-const CreateNewContent = () => {
+const CreateNewContent = (props: PROPS) => {
   return <div>create</div>;
 };
 
