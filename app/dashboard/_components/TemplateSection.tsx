@@ -1,5 +1,5 @@
 import Templates from '@/app/(data)/Templates';
-import React from 'react';
+import React, { useEffect } from 'react';
 import TemplateCard from './templateCard';
 //type defination
 export interface TEMPLATE {
@@ -18,7 +18,10 @@ export interface FORM {
   required?: boolean;
 }
 
-const TemplateSection = () => {
+const TemplateSection = ({ userSearchInput }: any) => {
+  useEffect(() => {
+    console.log(userSearchInput);
+  }, [userSearchInput]);
   return (
     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-10'>
       {Templates.map((item: TEMPLATE, index: number) => (
