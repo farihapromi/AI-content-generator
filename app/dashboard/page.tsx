@@ -1,7 +1,12 @@
 import React from 'react';
 
 const Dashboard = () => {
-  return <div>dashboard</div>;
+  return (
+    <div>
+      {/* searcv section */}
+      {/* template list section */}
+    </div>
+  );
 };
 
 export default Dashboard;
