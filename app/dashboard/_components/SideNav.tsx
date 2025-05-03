@@ -20,7 +20,7 @@ const SideNav = () => {
       path: '/dashboard/billing',
     },
     {
-      name: 'Seting',
+      name: 'Setting',
       icon: Settings,
       path: '/dashboard/setting',
     },
@@ -29,6 +29,17 @@ const SideNav = () => {
     <div className='h-screen p-5 shadow-sm border'>
       <div className='flex justify-center'>
         <Image src={'/logo.svg'} alt='logo' height={50} width={50} />
+      </div>
+      <div>
+        {menuList.map((menu, index) => (
+          <div
+            className='flex gap-2 mb-2 p-4 hover:bg-primary hover:text-white rounded-lg'
+            key={index}
+          >
+            <menu.icon />
+            <h2>{menu.name}</h2>
+          </div>
+        ))}
       </div>
     </div>
   );

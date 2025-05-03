@@ -1,5 +1,6 @@
 import React from 'react';
 import SideNav from './_components/SideNav';
+import Header from './_components/Header';
 
 const layout = ({
   children,
@@ -11,7 +12,11 @@ const layout = ({
       <div className='md:w-64 fixed  md:block hidden'>
         <SideNav />
       </div>
-      <div className='md:ml-64'>{children}</div>
+      <div className='md:ml-64'>
+        <Header />
+
+        {children}
+      </div>
     </div>
   );
 };
