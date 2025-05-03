@@ -1,5 +1,5 @@
 import Templates from '@/app/(data)/Templates';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import TemplateCard from './templateCard';
 //type defination
 export interface TEMPLATE {
@@ -19,12 +19,22 @@ export interface FORM {
 }
 
 const TemplateSection = ({ userSearchInput }: any) => {
+  const [templateList, setTemplateList] = useState(Templates);
+  //filtered data according to input search
   useEffect(() => {
-    console.log(userSearchInput);
+    if (userSearchInput) {
+      //when the user search in input box it filter out the search items
+      const filterData = Templates.filter((item) =>
+        item.name.toLowerCase().includes(userSearchInput.toLowerCase())
+      );
+      setTemplateList(filterData);
+    } else {
+      setTemplateList(Templates);
+    }
   }, [userSearchInput]);
   return (
     <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-10'>
-      {Templates.map((item: TEMPLATE, index: number) => (
+      {templateList.map((item: TEMPLATE, index: number) => (
         <div key={index}>
           <TemplateCard {...item} />
         </div>
