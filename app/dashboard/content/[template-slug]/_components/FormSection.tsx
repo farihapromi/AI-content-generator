@@ -9,9 +9,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 interface PROPS {
   selectedTemplate?: TEMPLATE;
+  userFormInput: any;
 }
 
-const FormSection = ({ selectedTemplate }: PROPS) => {
+const FormSection = ({ selectedTemplate, userFormInput }: PROPS) => {
   const [formData, setFormData] = useState<any>();
 
   const handleInputChange = (e: any) => {
@@ -21,7 +22,7 @@ const FormSection = ({ selectedTemplate }: PROPS) => {
 
   const onSubmit = (e: any) => {
     e.preventDefault();
-    console.log(formData);
+    userFormInput(formData);
   };
 
   return (
