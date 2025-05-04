@@ -21,7 +21,8 @@ An AI-powered content generation app built with Next.js, React, and Tailwind CSS
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 14
-- **UI**: React, Tailwind CSS, Shadcn UI
+- **UI**: React, Tailwind CSS, Shadcn UI,Lucid react https://lucide.dev/guide/packages/lucide-react
+- **Rich Text Editor**: UI toast https://ui.toast.com/tui-editor
 - **API**: OpenAI (via fetch or Axios)
 - **Deployment**: Vercel
 - **Authentication**: Clerk
