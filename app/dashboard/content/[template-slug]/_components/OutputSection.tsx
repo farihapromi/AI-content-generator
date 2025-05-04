@@ -1,7 +1,7 @@
 import React from 'react';
 
 const OutputSection = () => {
-  return <div></div>;
+  return <div>Outputsection</div>;
 };
 
 export default OutputSection;

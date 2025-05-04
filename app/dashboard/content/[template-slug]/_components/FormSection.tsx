@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { TEMPLATE } from '@/app/dashboard/_components/TemplateSection';
 import Image from 'next/image';
@@ -12,9 +12,18 @@ interface PROPS {
 }
 
 const FormSection = ({ selectedTemplate }: PROPS) => {
+  const [formData, setFormData] = useState<any>();
+
+  const handleInputChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
   const onSubmit = (e: any) => {
     e.preventDefault();
+    console.log(formData);
   };
+
   return (
     <div className='p-5 shadow-md border text-black rounded-lg bg-white'>
       {/* @ts-ignore */}
@@ -27,12 +36,20 @@ const FormSection = ({ selectedTemplate }: PROPS) => {
       <form className='mt-6' onSubmit={onSubmit}>
         {selectedTemplate?.form?.map((item, index) => (
           // render dynamcally form
-          <div key={index} className='my-2 flex flex-col gap-4 mb-8'>
+          <div key={index} className='my-2 flex flex-col gap-2 mb-8'>
             <label className='font-bold text-sm'>{item.label}</label>
             {item.field == 'input' ? (
-              <Input />
+              <Input
+                name={item.name}
+                required={item?.required}
+                onChange={handleInputChange}
+              />
             ) : item.field == 'textarea' ? (
-              <Textarea />
+              <Textarea
+                name={item.name}
+                required={item?.required}
+                onChange={handleInputChange}
+              />
             ) : null}
           </div>
         ))}
