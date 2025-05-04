@@ -1,6 +1,7 @@
 import Templates from '@/app/(data)/Templates';
 import React, { useEffect, useState } from 'react';
 import TemplateCard from './templateCard';
+
 //type defination
 export interface TEMPLATE {
   name: string;
