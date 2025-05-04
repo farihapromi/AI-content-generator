@@ -17,6 +17,7 @@ interface PROPS {
 
 const CreateNewContent = (props: PROPS) => {
   const [loading, setLoading] = useState(false);
+  const [aiOutput, setAiOutput] = useState<string>('');
   //filter seelcted tamplte
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug === props.params['template-slug']
@@ -27,7 +28,7 @@ const CreateNewContent = (props: PROPS) => {
     const selectedPrompt = selectedTemplate?.aiPrompt;
     const finalAiPrompt = JSON.stringify(formData) + ',' + selectedPrompt;
     const result = await chatSession.sendMessage(finalAiPrompt);
-    console.log(result.response.text());
+    setAiOutput(result.response.text());
     setLoading(false);
   };
   return (
@@ -48,7 +49,7 @@ const CreateNewContent = (props: PROPS) => {
         />
         {/* OutputSection */}
         <div className='col-span-2'>
-          <OutputSection />
+          <OutputSection aiOutput={aiOutput} />
         </div>
       </div>
     </div>
