@@ -1,6 +1,6 @@
 'use client';
 import Templates from '@/app/(data)/Templates';
-import React from 'react';
+import React, { useState } from 'react';
 import FormSection from './_components/FormSection';
 
 import OutputSection from './_components/OutputSection';
@@ -8,6 +8,7 @@ import { TEMPLATE } from '../../_components/TemplateSection';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { chatSession } from '@/utils/AiModel';
 interface PROPS {
   params: {
     'template-slug': string;
@@ -15,12 +16,20 @@ interface PROPS {
 }
 
 const CreateNewContent = (props: PROPS) => {
+  const [loading, setLoading] = useState(false);
   //filter seelcted tamplte
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug === props.params['template-slug']
   );
   //generate Ai content
-  const generateAiContent = (formData: any) => {};
+  const generateAiContent = async (formData: any) => {
+    setLoading(true);
+    const selectedPrompt = selectedTemplate?.aiPrompt;
+    const finalAiPrompt = JSON.stringify(formData) + ',' + selectedPrompt;
+    const result = await chatSession.sendMessage(finalAiPrompt);
+    console.log(result.response.text());
+    setLoading(false);
+  };
   return (
     <div className='p-10'>
       <Link href='/dashboard'>
@@ -35,6 +44,7 @@ const CreateNewContent = (props: PROPS) => {
         <FormSection
           selectedTemplate={selectedTemplate}
           userFormInput={(v: any) => generateAiContent(v)}
+          loading={loading}
         />
         {/* OutputSection */}
         <div className='col-span-2'>
