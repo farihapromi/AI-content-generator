@@ -25,6 +25,7 @@ An AI-powered content generation app built with Next.js, React, and Tailwind CSS
 - **Rich Text Editor**: UI toast https://ui.toast.com/tui-editor
 - **API**: OpenAI (via fetch or Axios)
 - **Deployment**: Vercel
+- **Database**: PostGreSql,Drizzle
 - **Authentication**: Clerk
 
 ---
