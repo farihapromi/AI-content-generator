@@ -9,6 +9,11 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { chatSession } from '@/utils/AiModel';
+import { db } from '@/utils/db';
+import { AIOutput } from '@/utils/schema';
+import { useUser } from '@clerk/nextjs';
+import moment from 'moment';
+
 interface PROPS {
   params: {
     'template-slug': string;
@@ -18,6 +23,8 @@ interface PROPS {
 const CreateNewContent = (props: PROPS) => {
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>('');
+  //getting user from clerk
+  const { user } = useUser();
   //filter seelcted tamplte
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug === props.params['template-slug']
@@ -29,7 +36,19 @@ const CreateNewContent = (props: PROPS) => {
     const finalAiPrompt = JSON.stringify(formData) + ',' + selectedPrompt;
     const result = await chatSession.sendMessage(finalAiPrompt);
     setAiOutput(result.response.text());
+    //save output to db
+    await saveInDb(formData, selectedTemplate?.slug, aiOutput);
     setLoading(false);
+  };
+  // save output to db
+  const saveInDb = async (formData: any, slug: any, aiResp: string) => {
+    const result = await db.insert(AIOutput).values({
+      formData: formData,
+      templateSlug: slug,
+      aiResponse: aiResp,
+      createdBy: user?.primaryEmailAddress?.emailAddress,
+      createdAt: moment().format('DD/MM/YYYY'),
+    });
   };
   return (
     <div className='p-10'>
