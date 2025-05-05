@@ -37,7 +37,7 @@ const CreateNewContent = (props: PROPS) => {
     const result = await chatSession.sendMessage(finalAiPrompt);
     setAiOutput(result.response.text());
     //save output to db
-    await saveInDb(formData, selectedTemplate?.slug, aiOutput);
+    await saveInDb(formData, selectedTemplate?.slug, result.response.text());
     setLoading(false);
   };
   // save output to db
@@ -49,6 +49,7 @@ const CreateNewContent = (props: PROPS) => {
       createdBy: user?.primaryEmailAddress?.emailAddress,
       createdAt: moment().format('DD/MM/YYYY'),
     });
+    console.log(result);
   };
   return (
     <div className='p-10'>
