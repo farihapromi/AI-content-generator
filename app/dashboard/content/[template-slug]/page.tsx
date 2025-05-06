@@ -1,6 +1,6 @@
 'use client';
 import Templates from '@/app/(data)/Templates';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import FormSection from './_components/FormSection';
 
 import OutputSection from './_components/OutputSection';
@@ -13,6 +13,8 @@ import { db } from '@/utils/db';
 import { AIOutput } from '@/utils/schema';
 import { useUser } from '@clerk/nextjs';
 import moment from 'moment';
+import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
+import { useRouter } from 'next/navigation';
 
 interface PROPS {
   params: {
@@ -25,12 +27,19 @@ const CreateNewContent = (props: PROPS) => {
   const [aiOutput, setAiOutput] = useState<string>('');
   //getting user from clerk
   const { user } = useUser();
+  const router = useRouter();
+  const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
   //filter seelcted tamplte
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug === props.params['template-slug']
   );
   //generate Ai content
   const generateAiContent = async (formData: any) => {
+    if (totalUsage >= 10000) {
+      router.push('/dashboad/billing');
+      console.log('Please Upgrade');
+      return;
+    }
     setLoading(true);
     const selectedPrompt = selectedTemplate?.aiPrompt;
     const finalAiPrompt = JSON.stringify(formData) + ',' + selectedPrompt;

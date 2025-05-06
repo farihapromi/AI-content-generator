@@ -7,6 +7,8 @@ import { AIOutput } from '@/utils/schema';
 import { eq } from 'drizzle-orm';
 import moment from 'moment';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Copy } from 'lucide-react';
 
 export interface HISTORY {
   id: number;
@@ -51,7 +53,7 @@ const HistoryPage = () => {
               <th className='px-6 py-4'>AI RESP</th>
               <th className='px-6 py-4'>DATE</th>
               <th className='px-6 py-4'>WORDS</th>
-              <th className='px-6 py-4'>EDIT</th>
+              <th className='px-6 py-4'>COPY</th>
             </tr>
           </thead>
           <tbody className='divide-y divide-gray-100'>
@@ -70,8 +72,17 @@ const HistoryPage = () => {
                 <td className='px-6 py-4'>
                   {entry.aiResponse.trim().split(/\s+/).length}
                 </td>
-                <td className='px-6 py-4 text-indigo-600 underline'>
-                  <Link href={`/dashboard/edit/${entry.id}`}>Edit</Link>
+                <td>
+                  <Button
+                    variant='ghost'
+                    className='text-primary'
+                    onClick={() =>
+                      navigator.clipboard.writeText(entry.aiResponse)
+                    } //copy buton to copy content
+                  >
+                    <Copy className='w-4 h-4' />
+                    Copy
+                  </Button>
                 </td>
               </tr>
             ))}
