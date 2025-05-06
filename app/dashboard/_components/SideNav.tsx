@@ -34,7 +34,7 @@ const SideNav = () => {
   return (
     <div className='h-screen p-5 shadow-sm border bg-white relative'>
       <div className='flex justify-center'>
-        <Image src={'/logo.svg'} alt='logo' height={50} width={50} />
+        <Image src={'/logo2.svg'} alt='logo' height={70} width={70} />
       </div>
       <hr className='my-4 border' />
       <div className='mt-3'>
