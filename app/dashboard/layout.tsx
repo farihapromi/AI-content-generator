@@ -9,7 +9,7 @@ const layout = ({
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const [totalUsage, setTotalUsage] = useState<number>(0);
+  const [totalUsage, setTotalUsage] = useState<Number>(0);
   return (
     <TotalUsageContext.Provider value={{ totalUsage, setTotalUsage }}>
       <div className='bg-slate-100 h-screen'>

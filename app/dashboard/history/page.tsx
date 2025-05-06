@@ -8,11 +8,12 @@ import { eq } from 'drizzle-orm';
 import moment from 'moment';
 import Link from 'next/link';
 
-interface HISTORY {
+export interface HISTORY {
   id: number;
   templateSlug: string;
-  formData: any;
+  formData: string;
   aiResponse: string;
+  createdBy: string;
   createdAt: string;
 }
 
