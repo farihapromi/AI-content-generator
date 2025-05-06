@@ -15,6 +15,7 @@ import { useUser } from '@clerk/nextjs';
 import moment from 'moment';
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 import { useRouter } from 'next/navigation';
+import { UpdateCreditContext } from '@/app/(context)/UpdateCreditContext';
 
 interface PROPS {
   params: {
@@ -29,11 +30,15 @@ const CreateNewContent = (props: PROPS) => {
   const { user } = useUser();
   const router = useRouter();
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
+  const { upgradeCreditUsage, setUpgradeCreditUsage } =
+    useContext(UpdateCreditContext);
   //filter seelcted tamplte
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug === props.params['template-slug']
   );
   //generate Ai content
+  //used to genrate content from ai
+
   const generateAiContent = async (formData: any) => {
     if (totalUsage >= 10000) {
       router.push('/dashboad/billing');
@@ -48,6 +53,8 @@ const CreateNewContent = (props: PROPS) => {
     //save output to db
     await saveInDb(formData, selectedTemplate?.slug, result.response.text());
     setLoading(false);
+    //update word count
+    setUpgradeCreditUsage(Date.now());
   };
   // save output to db
   const saveInDb = async (formData: any, slug: any, aiResp: string) => {

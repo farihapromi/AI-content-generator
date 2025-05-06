@@ -8,11 +8,14 @@ import { eq } from 'drizzle-orm';
 import React, { useContext, useEffect, useState } from 'react';
 import { HISTORY } from '../history/page';
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
+import { UpdateCreditContext } from '@/app/(context)/UpdateCreditContext';
 
 const UsageTrack = () => {
   //get user information
   const { user } = useUser();
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
+  const { upgradeCreditUsage, setUpgradeCreditUsage } =
+    useContext(UpdateCreditContext);
 
   //count words
   // useEffect(() => {
@@ -24,6 +27,11 @@ const UsageTrack = () => {
       getData();
     }
   }, [user]);
+
+  //for credit update
+  useEffect(() => {
+    getData();
+  }, [upgradeCreditUsage]);
 
   const getData = async () => {
     {
