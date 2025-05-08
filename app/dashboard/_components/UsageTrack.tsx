@@ -10,6 +10,7 @@ import { HISTORY } from '../history/page';
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 import { UpdateCreditContext } from '@/app/(context)/UpdateCreditContext';
 import { useRouter } from 'next/navigation';
+import Templates from '@/app/(data)/Templates'; // Add this import at the top
 
 const UsageTrack = () => {
   //get user information
@@ -36,13 +37,25 @@ const UsageTrack = () => {
   }, [upgradeCreditUsage]);
 
   const getData = async () => {
-    {
-      /* @ts-ignore */
-    }
-    const result: HISTORY[] = await db
+    const email = user?.primaryEmailAddress?.emailAddress;
+
+    // Ensure the email is defined
+    if (!email) return;
+
+    const rawResult = await db
       .select()
       .from(AIOutput)
-      .where(eq(AIOutput.createdBy, user?.primaryEmailAddress?.emailAddress));
+      .where(eq(AIOutput.createdBy, email)); // Now `email` is definitely a string
+
+    // Enrich result with `icon` field
+    const result: HISTORY[] = rawResult.map((entry: any) => {
+      const template = Templates.find((t) => t.slug === entry.templateSlug);
+      return {
+        ...entry,
+        icon: template?.icon || '', // Add icon
+      };
+    });
+
     getTotalUsage(result);
   };
 

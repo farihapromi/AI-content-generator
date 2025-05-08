@@ -57,16 +57,27 @@ const CreateNewContent = (props: PROPS) => {
     setUpgradeCreditUsage(Date.now());
   };
   // save output to db
-  const saveInDb = async (formData: any, slug: any, aiResp: string) => {
-    const result = await db.insert(AIOutput).values({
-      formData: formData,
+  const saveInDb = async (
+    formData: any,
+    slug: string | undefined,
+    aiResp: string
+  ) => {
+    const email = user?.primaryEmailAddress?.emailAddress;
+
+    if (!email || !slug || !formData) {
+      console.error('Missing data. Cannot insert into database.');
+      return;
+    }
+
+    await db.insert(AIOutput).values({
+      formData: JSON.stringify(formData), // Ensure it's a string
       templateSlug: slug,
       aiResponse: aiResp,
-      createdBy: user?.primaryEmailAddress?.emailAddress,
-      createdAt: moment().format('DD/MM/YYYY'),
+      createdBy: email,
+      createdAt: moment().format('YYYY-MM-DD'), // use ISO-friendly date format
     });
-    console.log(result);
   };
+
   return (
     <div className='p-10'>
       <Link href='/dashboard'>
