@@ -1,5 +1,3 @@
-// utils/AIModel.tsx
-
 import {
   GoogleGenerativeAI,
   HarmCategory,

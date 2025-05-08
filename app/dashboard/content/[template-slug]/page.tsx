@@ -32,7 +32,7 @@ const CreateNewContent = (props: PROPS) => {
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
   const { upgradeCreditUsage, setUpgradeCreditUsage } =
     useContext(UpdateCreditContext);
-  //filter seelcted tamplte
+  //filter selected template
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug === props.params['template-slug']
   );
@@ -40,7 +40,7 @@ const CreateNewContent = (props: PROPS) => {
   //used to genrate content from ai
 
   const generateAiContent = async (formData: any) => {
-    if (totalUsage >= 10000) {
+    if (totalUsage >= 100000) {
       router.push('/dashboad/billing');
       console.log('Please Upgrade');
       return;

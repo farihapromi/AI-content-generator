@@ -9,6 +9,8 @@ import moment from 'moment';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
+import Image from 'next/image';
+import Templates from '@/app/(data)/Templates';
 
 export interface HISTORY {
   id: number;
@@ -17,6 +19,7 @@ export interface HISTORY {
   aiResponse: string;
   createdBy: string;
   createdAt: string;
+  icon: string;
 }
 
 const HistoryPage = () => {
@@ -32,8 +35,16 @@ const HistoryPage = () => {
         .select()
         .from(AIOutput)
         .where(eq(AIOutput.createdBy, email));
+      // Map templateSlug to icon from Templates
+      const enrichedResult = result.map((entry: any) => {
+        const template = Templates.find((t) => t.slug === entry.templateSlug);
+        return {
+          ...entry,
+          icon: template?.icon || '',
+        };
+      });
 
-      setHistory(result);
+      setHistory(enrichedResult);
     };
 
     fetchHistory();
@@ -60,8 +71,11 @@ const HistoryPage = () => {
             {history.map((entry) => (
               <tr key={entry.id} className='hover:bg-gray-50'>
                 <td className='px-6 py-4 whitespace-nowrap capitalize'>
-                  {getTemplateIcon(entry.templateSlug)}{' '}
-                  {entry.templateSlug.replace(/-/g, ' ')}
+                  <div className='flex gap-2 '>
+                    <Image src={entry.icon} alt='icon' width={20} height={20} />
+
+                    {entry.templateSlug.replace(/-/g, ' ')}
+                  </div>
                 </td>
                 <td className='px-6 py-4 max-w-xs truncate'>
                   {entry.aiResponse}
@@ -92,13 +106,5 @@ const HistoryPage = () => {
     </div>
   );
 };
-
-// Dummy icon logic – replace with actual mapping if needed
-function getTemplateIcon(slug: string) {
-  if (slug.includes('youtube')) return '📺';
-  if (slug.includes('emoji')) return '😊';
-  if (slug.includes('hashtag')) return '🏷️';
-  return '🧠';
-}
 
 export default HistoryPage;

@@ -9,10 +9,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { HISTORY } from '../history/page';
 import { TotalUsageContext } from '@/app/(context)/TotalUsageContext';
 import { UpdateCreditContext } from '@/app/(context)/UpdateCreditContext';
+import { useRouter } from 'next/navigation';
 
 const UsageTrack = () => {
   //get user information
   const { user } = useUser();
+  const router = useRouter();
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
   const { upgradeCreditUsage, setUpgradeCreditUsage } =
     useContext(UpdateCreditContext);
@@ -62,13 +64,17 @@ const UsageTrack = () => {
           <div
             className='h-2 bg-white rounded-full'
             style={{
-              width: (totalUsage / 10000) * 100 + '%',
+              width: (totalUsage / 100000) * 100 + '%',
             }}
           ></div>
         </div>
-        <h2 className='text-sm my-2'>{totalUsage}/10,000 credit usage</h2>
+        <h2 className='text-sm my-2'>{totalUsage}/1,00,000 credit usage</h2>
       </div>
-      <Button variant={'secondary'} className='w-full my-3 text-primary'>
+      <Button
+        variant={'secondary'}
+        className='w-full my-3 text-primary'
+        onClick={() => router.push('/dashboard/billing')}
+      >
         Upgrade
       </Button>
     </div>
