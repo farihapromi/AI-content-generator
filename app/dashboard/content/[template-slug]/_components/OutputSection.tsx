@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Editor } from '@tinymce/tinymce-react'; // Assuming you're using TinyMCE
+
+import { Editor } from '@tinymce/tinymce-react';
 import { Button } from '@/components/ui/button';
 import { Copy, CheckCircle } from 'lucide-react';
 
