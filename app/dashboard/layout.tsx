@@ -5,25 +5,27 @@ import Header from './_components/Header';
 import { TotalUsageContext } from '../(context)/TotalUsageContext';
 import { UpdateCreditContext } from '../(context)/UpdateCreditContext';
 
-const layout = ({
+const Layout = ({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) => {
-  const [totalUsage, setTotalUsage] = useState<Number>(0);
-  const [upgradeCreditUsage, setUpgradeCreditUsage] = useState<any>();
+  const [totalUsage, setTotalUsage] = useState<number>(0);
+  const [upgradeCreditUsage, setUpgradeCreditUsage] = useState<number | null>(
+    null
+  );
+
   return (
     <TotalUsageContext.Provider value={{ totalUsage, setTotalUsage }}>
       <UpdateCreditContext.Provider
         value={{ upgradeCreditUsage, setUpgradeCreditUsage }}
       >
         <div className='bg-slate-100 h-screen'>
-          <div className='md:w-64 fixed  md:block hidden'>
+          <div className='md:w-64 fixed md:block hidden'>
             <SideNav />
           </div>
           <div className='md:ml-64'>
             <Header />
-
             {children}
           </div>
         </div>
@@ -32,4 +34,4 @@ const layout = ({
   );
 };
 
-export default layout;
+export default Layout;
