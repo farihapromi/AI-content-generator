@@ -6,7 +6,7 @@ import { db } from '@/utils/db';
 import { AIOutput } from '@/utils/schema';
 import { eq } from 'drizzle-orm';
 import moment from 'moment';
-import Link from 'next/link';
+
 import { Button } from '@/components/ui/button';
 import { Copy } from 'lucide-react';
 import Image from 'next/image';

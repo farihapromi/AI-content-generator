@@ -3,10 +3,7 @@ import React, { useState } from 'react';
 import SideNav from './_components/SideNav';
 import Header from './_components/Header';
 import { TotalUsageContext } from '../(context)/TotalUsageContext';
-import {
-  UpdateCreditContex,
-  UpdateCreditContext,
-} from '../(context)/UpdateCreditContext';
+import { UpdateCreditContext } from '../(context)/UpdateCreditContext';
 
 const layout = ({
   children,
