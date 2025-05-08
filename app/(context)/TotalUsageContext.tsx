@@ -1,3 +1,11 @@
 import { createContext } from 'react';
 
-export const TotalUsageContext = createContext<number>(0);
+type TotalUsageContextType = {
+  totalUsage: number;
+  setTotalUsage: React.Dispatch<React.SetStateAction<number>>;
+};
+
+export const TotalUsageContext = createContext<TotalUsageContextType>({
+  totalUsage: 0,
+  setTotalUsage: () => {},
+});
