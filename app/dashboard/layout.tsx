@@ -4,6 +4,7 @@ import SideNav from './_components/SideNav';
 import Header from './_components/Header';
 import { TotalUsageContext } from '../(context)/TotalUsageContext';
 import { UpdateCreditContext } from '../(context)/UpdateCreditContext';
+import Footer from './_components/Footer';
 
 const Layout = ({
   children,
@@ -20,13 +21,21 @@ const Layout = ({
       <UpdateCreditContext.Provider
         value={{ upgradeCreditUsage, setUpgradeCreditUsage }}
       >
-        <div className='bg-slate-100 h-screen'>
-          <div className='md:w-64 fixed md:block hidden'>
+        <div className='bg-slate-100 min-h-screen'>
+          {/* Sidebar */}
+          <div className='md:w-64 fixed md:block hidden '>
             <SideNav />
           </div>
+
+          {/* Main content */}
           <div className='md:ml-64'>
             <Header />
-            {children}
+            <main>{children}</main>
+          </div>
+
+          {/* Footer with padding to avoid sidebar overlap */}
+          <div className='w-full md:pl-64'>
+            <Footer />
           </div>
         </div>
       </UpdateCreditContext.Provider>
