@@ -1,6 +1,6 @@
 #  AI Content Generator
 
-An AI-powered content generation app built with Next.js, React, and Tailwind CSS. This app uses OpenAI’s GPT model to generate high-quality text content for blogs, ads, or social media.
+An AI-powered content generation app built with Next.js, React, and Tailwind CSS. This app uses Gemini model to generate high-quality text content for blogs, ads, or social media.
 
 ---
 
@@ -8,7 +8,6 @@ An AI-powered content generation app built with Next.js, React, and Tailwind CSS
 
 - ✨ Generate content using AI (OpenAI GPT)
 - 💬 Multiple content modes (blog, tweet, ad copy, etc.)
-- 🌙 Dark mode support
 - ⚡ Fast performance (Next.js + Tailwind CSS)
 - 📦 API integrated and easily extendable
 
@@ -33,7 +32,7 @@ An AI-powered content generation app built with Next.js, React, and Tailwind CSS
 ## 📦 Installation
 
 ```bash
-git clone https://github.com/your-username/ai-content-generator.git
+git clone https://github.com/farihapromi/ai-content-generator.git
 cd ai-content-generator
 npm install
 npm run dev
